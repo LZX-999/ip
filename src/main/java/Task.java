@@ -15,6 +15,10 @@ public class Task {
         this.isDone = false;
     }
 
+    public String returnTag() {
+        return isDone ? "X" : "";
+    }
+
     public String toString() {
         String box = "[" + (isDone ? "X" : "") + "]";
         return box + " " + name;
