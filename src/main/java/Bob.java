@@ -23,7 +23,6 @@ public class Bob {
         boolean run = true;
         Scanner sc = new Scanner(System.in);
         while (run) {
-            System.out.print("You: ");
             String input = sc.nextLine();
             String[] parts = input.split(" ", 2);
             String firstArgs = parts[0];
@@ -70,8 +69,6 @@ public class Bob {
                 Event event = new Event(description, fromTime, toTime);
                 lists.add(event);
                 System.out.println("Bob: Added new event " + event);
-                System.out.println("From: " + fromTime);
-                System.out.println("To: " + toTime);
                 System.out.println(lines);
                 break;
             }
