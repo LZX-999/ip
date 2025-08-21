@@ -15,7 +15,30 @@ public class Bob {
         }
         System.out.println(lines);
     }
-
+    private static void delete(String input) {
+        try {
+            System.out.println(lines);
+            System.out.println(lines);
+            String[] parts = input.split(" ", 2);
+            int idx = Integer.parseInt(parts[1]);
+            if (idx < 0 || idx - 1 >= lists.size()) {
+                throw new IndexOutOfBoundsException();
+            }
+            Task task = lists.get(idx - 1);
+            System.out.println("Bob: Deleting this task: ");
+            System.out.println(task);
+            lists.remove(idx - 1);
+            System.out.println("You now have " + lists.size() + " tasks");
+            System.out.println(lines);
+            
+        }
+        catch (IndexOutOfBoundsException e) {
+            System.out.println("Provide valid task number! Usage delete <task number>");
+        }
+        catch (NumberFormatException e) {
+            System.out.println("Enter a valid number!");
+        }
+    }
     private static void todo(String input) {
         try {
             System.out.println(lines);
@@ -169,6 +192,10 @@ public class Bob {
             }
             case "unmark": {
                 unmark(input);
+                break;
+            }
+            case "delete": {
+                delete(input);
                 break;
             }
             default:
