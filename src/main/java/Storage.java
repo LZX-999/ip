@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 
 public class Storage {
-    private final String filePath = "data/tasks.txt";
+    private final String FILE_PATH = "data/tasks.txt";
 
     Storage() {
     }
@@ -16,7 +16,7 @@ public class Storage {
     public ArrayList<Task> loadData() throws IOException{
         ArrayList<Task> ret = new ArrayList<Task>();
         try {
-            File file = new  File(filePath);
+            File file = new  File(FILE_PATH);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 boolean created = file.createNewFile();
@@ -38,14 +38,14 @@ public class Storage {
 
     public void saveTask(List<Task> tasks) throws IOException {
         try {
-            File file = new File(filePath);
+            File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.createNewFile();
             } else {
                 file.delete();
                 file.createNewFile();
             }
-            FileWriter writer = new FileWriter(filePath);
+            FileWriter writer = new FileWriter(FILE_PATH);
             for (int i = 0; i < tasks.size(); i++) {
                 Task curr = tasks.get(i);
                 writer.write(curr.saveString() + System.lineSeparator());
