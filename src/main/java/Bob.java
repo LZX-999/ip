@@ -35,11 +35,9 @@ public class Bob {
             System.out.println("You now have " + lists.size() + " tasks");
             System.out.println(lines);
             
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Provide valid task number! Usage delete <task number>");
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
         }
     }
@@ -52,8 +50,7 @@ public class Bob {
             System.out.println("Bob: Added new todo " + todo);
             System.out.println(lines);
 
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException("Usage todo <Task name>!");
         }
     }
@@ -81,8 +78,7 @@ public class Bob {
             lists.add(deadline);
             System.out.println("Bob: Added new deadline [D]" + deadline.getTaskName() + " (by: " + formattedDate + ")");
             System.out.println(lines);
-        }
-        catch (InvalidEventUsageException e) {
+        } catch (InvalidEventUsageException e) {
             System.out.println("Usage: deadline <task desc> /by <yyyy-MM-dd>");
         }
     }
@@ -106,12 +102,10 @@ public class Bob {
                 if (toDate.isBefore(fromDate)) {
                     throw new InvalidEventUsageException("");
                 }
-            } 
-            catch (DateTimeParseException e) {
+            } catch (DateTimeParseException e) {
                 System.out.println("Dates must be in yyyy-MM-dd format!");
                 return;
-            }
-            catch (InvalidEventUsageException e) {
+            } catch (InvalidEventUsageException e) {
                 System.out.println("You cannot time travel bro");
                 return;
             }
@@ -121,8 +115,7 @@ public class Bob {
             lists.add(event);
             System.out.println("Bob: Added new event [E]" + event.getTaskName() + " (from: " + formattedFrom + " to: " + formattedTo + ")");
             System.out.println(lines);
-        }
-        catch (InvalidEventUsageException e) {
+        } catch (InvalidEventUsageException e) {
             System.out.println("Usage: event <task desc> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
         }
     }
@@ -139,11 +132,9 @@ public class Bob {
             System.out.println("Tasked marked as not done: ");
             System.out.println(lists.get(idx - 1));
             System.out.println(lines);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Attempted to mark task that does not exists!");
         }   
     }
@@ -160,11 +151,9 @@ public class Bob {
             System.out.println("Tasked marked as done: ");
             System.out.println(lists.get(idx - 1));
             System.out.println(lines);
-        }
-        catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
-        }
-        catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
             System.out.println("Attempted to mark task that does not exists!");
         }
     }
@@ -187,8 +176,7 @@ public class Bob {
         Storage storage = new Storage();
         try {
             lists = storage.loadData();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Error while trying to load data");
         }
         boolean run = true;
@@ -211,8 +199,7 @@ public class Bob {
                 todo(input);
                 try {
                     storage.saveTask(lists);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println("Task added but unable to save tasklist persistently");
                 }
                 break;
@@ -220,8 +207,7 @@ public class Bob {
                 deadline(input);
                 try {
                     storage.saveTask(lists);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println("Task added but unable to save tasklist persistently");
                 }
                 break;
@@ -230,8 +216,7 @@ public class Bob {
                 event(input);
                 try {
                     storage.saveTask(lists);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println("Task added but unable to save tasklist persistently");
                 }
                 break;
@@ -240,8 +225,7 @@ public class Bob {
                 mark(input);
                 try {
                     storage.saveTask(lists);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println("Task marked but unable to save task persistently");
                 }
                 break;
@@ -250,8 +234,7 @@ public class Bob {
                 unmark(input);
                 try {
                     storage.saveTask(lists);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println("Task unmarked but unable to save task persistently");
                 }
                 break;
@@ -260,8 +243,7 @@ public class Bob {
                 delete(input);
                 try {
                     storage.saveTask(lists);
-                }
-                catch (IOException e) {
+                } catch (IOException e) {
                     System.out.println("Task deleted but unable to save tasklist persistently");
                 }
                 break;

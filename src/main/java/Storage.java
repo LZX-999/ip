@@ -41,8 +41,7 @@ public class Storage {
             File file = new File(filePath);
             if (!file.exists()) {
                 file.createNewFile();
-            }
-            else {
+            } else {
                 file.delete();
                 file.createNewFile();
             }
