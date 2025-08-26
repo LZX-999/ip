@@ -1,10 +1,12 @@
 public class Task {
     private String name;
     private boolean isDone;
+    private String tag;
 
-    Task(String name) {
+    Task(String name, String tag) {
         this.name = name;
         isDone = false;
+        this.tag = tag;
     }
 
     public void markDone() {
@@ -15,7 +17,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String returnTag() {
+    public String returnDone() {
         return isDone ? "X" : "";
     }
 
