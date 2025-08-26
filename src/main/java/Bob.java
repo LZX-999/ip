@@ -43,7 +43,7 @@ public class Bob {
         try {
             System.out.println(lines);
             String[] parts = input.split(" ", 2);
-            Todo todo = new Todo(parts[1]);
+            Todo todo = new Todo(parts[1], false);
             lists.add(todo);
             System.out.println("Bob: Added new todo " + todo);
             System.out.println(lines);
@@ -64,7 +64,7 @@ public class Bob {
             }
             String description = m.group(1).trim();
             String byTime = m.group(2).trim();
-            Deadline deadline = new Deadline(description, byTime);
+            Deadline deadline = new Deadline(description, byTime, false);
             lists.add(deadline);
             System.out.println("Bob: Added new deadline " + deadline);
             System.out.println(lines);
@@ -91,7 +91,7 @@ public class Bob {
             if (description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
                 throw new InvalidEventUsageException("");
             }
-            Event event = new Event(description, fromTime, toTime);
+            Event event = new Event(description, fromTime, toTime, false);
             lists.add(event);
             System.out.println("Bob: Added new event " + event);
             System.out.println(lines);

@@ -3,14 +3,18 @@ public class Task {
     private boolean isDone;
     private String tag;
 
-    Task(String name, String tag) {
+    Task(String name, String tag, boolean isDone) {
         this.name = name;
-        isDone = false;
+        isDone = isDone;
         this.tag = tag;
     }
 
     public void markDone() {
         this.isDone = true;
+    }
+
+    public String getTag() {
+        return this.tag;
     }
 
     public void unmarkDone() {
