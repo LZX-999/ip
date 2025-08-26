@@ -1,11 +1,12 @@
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.io.IOException;
 import java.util.ArrayList;
+
 public class Bob {
     private static ArrayList<Task> lists = new ArrayList<>();
     private static String lines = "____________________________________________________________";
-    
     private static void list() {
         System.out.println(lines);
         int count = 1;
@@ -43,10 +44,11 @@ public class Bob {
         try {
             System.out.println(lines);
             String[] parts = input.split(" ", 2);
-            Todo todo = new Todo(parts[1]);
+            Todo todo = new Todo(parts[1], false);
             lists.add(todo);
             System.out.println("Bob: Added new todo " + todo);
             System.out.println(lines);
+
         }
         catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException("Usage todo <Task name>!");
@@ -64,7 +66,7 @@ public class Bob {
             }
             String description = m.group(1).trim();
             String byTime = m.group(2).trim();
-            Deadline deadline = new Deadline(description, byTime);
+            Deadline deadline = new Deadline(description, byTime, false);
             lists.add(deadline);
             System.out.println("Bob: Added new deadline " + deadline);
             System.out.println(lines);
@@ -91,7 +93,7 @@ public class Bob {
             if (description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
                 throw new InvalidEventUsageException("");
             }
-            Event event = new Event(description, fromTime, toTime);
+            Event event = new Event(description, fromTime, toTime, false);
             lists.add(event);
             System.out.println("Bob: Added new event " + event);
             System.out.println(lines);
@@ -159,6 +161,13 @@ public class Bob {
         System.out.println(lines);
         System.out.println("Bob: Hello! I'm Bob! What can I do for you?");
         System.out.println(lines);
+        Storage storage = new Storage();
+        try {
+            lists = storage.loadData();
+        }
+        catch (IOException e) {
+            System.out.println("Error while trying to load data");
+        }
         boolean run = true;
         Scanner sc = new Scanner(System.in);
         while (run) {
@@ -177,25 +186,61 @@ public class Bob {
                 break;
             case "todo":
                 todo(input);
+                try {
+                    storage.saveTask(lists);
+                }
+                catch (IOException e) {
+                    System.out.println("Task added but unable to save tasklist persistently");
+                }
                 break;
             case "deadline": {
                 deadline(input);
+                try {
+                    storage.saveTask(lists);
+                }
+                catch (IOException e) {
+                    System.out.println("Task added but unable to save tasklist persistently");
+                }
                 break;
             }
             case "event": {
                 event(input);
+                try {
+                    storage.saveTask(lists);
+                }
+                catch (IOException e) {
+                    System.out.println("Task added but unable to save tasklist persistently");
+                }
                 break;
             }
             case "mark": {
                 mark(input);
+                try {
+                    storage.saveTask(lists);
+                }
+                catch (IOException e) {
+                    System.out.println("Task marked but unable to save task persistently");
+                }
                 break;
             }
             case "unmark": {
                 unmark(input);
+                try {
+                    storage.saveTask(lists);
+                }
+                catch (IOException e) {
+                    System.out.println("Task unmarked but unable to save task persistently");
+                }
                 break;
             }
             case "delete": {
                 delete(input);
+                try {
+                    storage.saveTask(lists);
+                }
+                catch (IOException e) {
+                    System.out.println("Task deleted but unable to save tasklist persistently");
+                }
                 break;
             }
             default:
