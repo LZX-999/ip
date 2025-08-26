@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 public class TaskDecoder {
     
 
@@ -8,14 +11,21 @@ public class TaskDecoder {
         case "T":
             return new Todo(splits[1], splits[2].equals("X"));
         case "D":
-            return new Deadline(splits[1], splits[2], splits[3].equals("X"));
+            return new Deadline(
+                splits[1],
+                LocalDate.parse(splits[2], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                splits[3].equals("X")
+            );
         case "E":
-            return new Event(splits[1], splits[2], splits[3], splits[4].equals("X"));
+            return new Event(
+                splits[1],
+                LocalDate.parse(splits[2], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                LocalDate.parse(splits[3], DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                splits[4].equals("X")
+            );
         
         default:
             throw new IllegalArgumentException("Wrong task type found");
         }
     }
 }
-
-
