@@ -1,16 +1,20 @@
 public class Task {
-    private String name;
+    private String taskName;
     private boolean isDone;
     private String tag;
 
     Task(String name, String tag, boolean isDone) {
-        this.name = name;
-        isDone = isDone;
+        this.taskName = name;
+        this.isDone = isDone;
         this.tag = tag;
     }
 
     public void markDone() {
         this.isDone = true;
+    }
+
+    public String getTaskName() {
+        return this.taskName;
     }
 
     public String getTag() {
@@ -22,11 +26,15 @@ public class Task {
     }
 
     public String returnDone() {
-        return isDone ? "X" : "";
+        return isDone ? "X" : " ";
+    }
+
+    public String saveString() {
+        return "";
     }
 
     public String toString() {
         String box = "[" + (isDone ? "X" : "") + "]";
-        return box + " " + name;
+        return box + " " + taskName;
     }
 }
