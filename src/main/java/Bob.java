@@ -3,6 +3,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Bob {
     private static ArrayList<Task> lists = new ArrayList<>();
@@ -66,21 +69,27 @@ public class Bob {
             }
             String description = m.group(1).trim();
             String byTime = m.group(2).trim();
-            Deadline deadline = new Deadline(description, byTime, false);
+            LocalDate date;
+            try {
+                date = LocalDate.parse(byTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            } catch (DateTimeParseException e) {
+                System.out.println("Date must be in yyyy-MM-dd format!");
+                return;
+            }
+            String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            Deadline deadline = new Deadline(description, date, false);
             lists.add(deadline);
-            System.out.println("Bob: Added new deadline " + deadline);
+            System.out.println("Bob: Added new deadline [D]" + deadline.getTaskName() + " (by: " + formattedDate + ")");
             System.out.println(lines);
         }
         catch (InvalidEventUsageException e) {
-            System.out.println("Usage: deadline <task desc> /by <time>");
+            System.out.println("Usage: deadline <task desc> /by <yyyy-MM-dd>");
         }
-
     }
 
     public static void event(String input) {
         try {
             System.out.println(lines);
-            // Regex to match: event <desc> /from <start> /to <end>
             String pattern = "^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
             java.util.regex.Pattern r = java.util.regex.Pattern.compile(pattern);
             java.util.regex.Matcher m = r.matcher(input);
@@ -90,16 +99,31 @@ public class Bob {
             String description = m.group(1).trim();
             String fromTime = m.group(2).trim();
             String toTime = m.group(3).trim();
-            if (description.isEmpty() || fromTime.isEmpty() || toTime.isEmpty()) {
-                throw new InvalidEventUsageException("");
+            LocalDate fromDate, toDate;
+            try {
+                fromDate = LocalDate.parse(fromTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                toDate = LocalDate.parse(toTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                if (toDate.isBefore(fromDate)) {
+                    throw new InvalidEventUsageException("");
+                }
+            } 
+            catch (DateTimeParseException e) {
+                System.out.println("Dates must be in yyyy-MM-dd format!");
+                return;
             }
-            Event event = new Event(description, fromTime, toTime, false);
+            catch (InvalidEventUsageException e) {
+                System.out.println("You cannot time travel bro");
+                return;
+            }
+            String formattedFrom = fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            String formattedTo = toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+            Event event = new Event(description, fromDate, toDate, false);
             lists.add(event);
-            System.out.println("Bob: Added new event " + event);
+            System.out.println("Bob: Added new event [E]" + event.getTaskName() + " (from: " + formattedFrom + " to: " + formattedTo + ")");
             System.out.println(lines);
         }
         catch (InvalidEventUsageException e) {
-            System.out.println("Usage: event <task desc> /from <start> /to <end>");
+            System.out.println("Usage: event <task desc> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
         }
     }
 
@@ -121,8 +145,7 @@ public class Bob {
         }
         catch (IndexOutOfBoundsException e) {
             System.out.println("Attempted to mark task that does not exists!");
-        }
-                
+        }   
     }
 
     public static void mark(String input) {
