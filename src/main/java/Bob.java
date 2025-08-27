@@ -1,8 +1,5 @@
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -148,37 +145,80 @@ public class Bob {
                 ui.printLine();
                 break;
             case "todo":
-                Task todo = todo(input);
-                manager.addTask(todo);
-                ui.printAddEvent(todo);
-                break;
+                try {
+                    Task todo = todo(input);
+                    if (todo == null) {
+                        throw new InvalidEventUsageException("");
+                    }
+                    manager.addTask(todo);
+                    ui.printAddEvent(todo);
+                } catch (InvalidEventUsageException e) {
+                    ui.printUsage();
+                }
+                    break;
             case "deadline": {
-                Task deadline = deadline(input);
-                manager.addTask(deadline);
-                ui.printAddEvent(deadline);
+                try {
+                    Task deadline = deadline(input);
+                    if (deadline == null) {
+                        throw new InvalidEventUsageException("");
+                    }
+                    manager.addTask(deadline);
+                    ui.printAddEvent(deadline);
+                } catch (InvalidEventUsageException e) {
+                    ui.printUsage();
+                }
                 break;
             }
             case "event": {
-                Task event = event(input);
-                manager.addTask(event);
-                ui.printAddEvent(event);
+                try {
+                    Task event = event(input);
+                    if (event == null) {
+                        throw new InvalidEventUsageException("");
+                    }
+                    manager.addTask(event);
+                    ui.printAddEvent(event);
+                } catch (InvalidEventUsageException e) {
+
+                } 
                 break;
             }
             case "mark": {
-                int idx = mark(input);
-                Task marked = manager.mark(idx);
-                ui.printMark(marked);
+                try {
+                    int idx = mark(input);
+                    Task marked = manager.mark(idx);
+                    if (marked == null) {
+                        throw new  InvalidEventUsageException( "");
+                    } 
+                    ui.printMark(marked);
+                } catch (InvalidEventUsageException e) {
+                    ui.printUsage();
+                }
                 break;
             }
             case "unmark": {
-                int idx = unmark(input);
-                Task unmarked = manager.unmark(idx);
-                ui.printUnmark(unmarked);
+                try {
+                    int idx = unmark(input);
+                    Task unmarked = manager.unmark(idx);
+                    if (unmarked == null) {
+                        throw new InvalidEventUsageException("");
+                    }
+                    ui.printUnmark(unmarked);
+                } catch (InvalidEventUsageException e) {
+                        ui.printUsage();
+                }
                 break;
             }
             case "delete": {
-                int idx = delete(input);
-                manager.deleteTask(idx);
+                try {
+                    int idx = delete(input);
+                    Task deleted = manager.deleteTask(idx);
+                    if (deleted == null) {
+                        throw new InvalidEventUsageException("");
+                    }
+                    ui.printDelete(deleted);
+                } catch (InvalidEventUsageException e) {
+                    ui.printUsage();
+                }
                 break;
             }
             default:

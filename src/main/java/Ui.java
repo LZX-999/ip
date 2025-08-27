@@ -70,7 +70,6 @@ public class Ui {
 
     public void printUsage() {
         printLine();
-        System.out.println("Bob: Unknown command");
         System.out.println("""
                 Commands:
                 1. todo <task desc> (Add todo task)
@@ -81,6 +80,13 @@ public class Ui {
                 6. unmark <index> (Unmark task as not done)
                 7. bye (Exit)
                 """);
+        printLine();
+    }
+
+    public void printDelete(Task t) {
+        printLine();
+        System.out.println("Deleted task");
+        System.out.println(t);
         printLine();
     }
 

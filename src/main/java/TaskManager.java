@@ -27,19 +27,21 @@ public class TaskManager {
         save();
     }
 
-    public void deleteTask(int idx) {
+    public Task deleteTask(int idx) {
         try {
             if (idx < 0 || idx - 1 >= tasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
             Task task = tasks.get(idx - 1);
-            System.out.println(task);
             tasks.remove(idx - 1);
             save();
+            return task;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Provide valid task number! Usage delete <task number>");
+            return null;
         } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
+            return null;
         }
     }
 
