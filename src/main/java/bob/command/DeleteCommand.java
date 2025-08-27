@@ -1,8 +1,15 @@
+package bob.command;
+
+import bob.task.Task;
+import bob.task.TaskManager;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
 public class DeleteCommand extends Command {
     private final Task t;
     private final int idx;
 
-    DeleteCommand(Task t, int idx) {
+    public DeleteCommand(Task t, int idx) {
         this.t = t;
         this.idx = idx;
     }

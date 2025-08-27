@@ -1,3 +1,5 @@
+package bob.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -6,7 +8,7 @@ public class Deadline extends Task {
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM dd yyyy");
     private LocalDate by;
 
-    Deadline(String s, LocalDate by, boolean isDone, int id) {
+    public Deadline(String s, LocalDate by, boolean isDone, int id) {
         super(s, "D", isDone, id);
         this.by = by;
     }

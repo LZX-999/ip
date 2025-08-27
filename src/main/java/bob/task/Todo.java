@@ -1,5 +1,7 @@
+package bob.task;
+
 public class Todo extends Task {
-    Todo(String s, boolean isDone, int id) {
+    public Todo(String s, boolean isDone, int id) {
         super(s, "T", isDone, id);
     }
 

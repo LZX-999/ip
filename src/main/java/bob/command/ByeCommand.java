@@ -1,7 +1,14 @@
+package bob.command;
+
+import bob.task.Task;
+import bob.task.TaskManager;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
 public class ByeCommand extends Command {
     private final Task t;
 
-    ByeCommand(Task t) {
+    public ByeCommand(Task t) {
         this.t = t;
     }
 

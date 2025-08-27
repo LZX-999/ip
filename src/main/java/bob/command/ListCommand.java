@@ -1,7 +1,14 @@
+package bob.command;
+
+import bob.task.Task;
+import bob.task.TaskManager;
+import bob.storage.Storage;
+import bob.ui.Ui;
+
 public class ListCommand extends Command {
     private final Task t;
 
-    ListCommand(Task t) {
+    public ListCommand(Task t) {
         this.t = t;
     }
 

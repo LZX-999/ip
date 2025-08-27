@@ -1,5 +1,8 @@
+package bob.exception;
+
 public class InvalidEventUsageException extends RuntimeException {
-    InvalidEventUsageException(String message) {
+
+    public InvalidEventUsageException(String message) {
         super(message);
     }
 }

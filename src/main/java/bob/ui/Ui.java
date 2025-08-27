@@ -1,4 +1,8 @@
+package bob.ui;
+
 import java.util.Scanner;
+
+import bob.task.Task;
 
 public class Ui {
     private final String LOGO = " /$$$$$$$   /$$$$$$  /$$$$$$$ \n" + //
@@ -15,7 +19,7 @@ public class Ui {
     private final String LINES = "____________________________________________________________";
     Scanner sc = new Scanner(System.in);
     
-    Ui() {
+    public Ui() {
 
     }
 

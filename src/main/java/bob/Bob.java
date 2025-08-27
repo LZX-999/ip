@@ -1,3 +1,13 @@
+package bob;
+
+import bob.ui.Ui;
+import bob.storage.Storage;
+import bob.task.TaskManager;
+import bob.command.Command;
+import bob.parser.Parser;
+import bob.exception.InvalidEventUsageException;
+
+
 public class Bob {
 
     private void start() {

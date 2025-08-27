@@ -1,3 +1,5 @@
+package bob.task;
+
 public class Task {
     private String taskName;
     private boolean isDone;

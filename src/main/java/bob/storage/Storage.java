@@ -1,16 +1,20 @@
+package bob.storage;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
+
+import bob.task.Task;
+import bob.task.TaskDecoder;
 
 
 public class Storage {
     private final String FILE_PATH = "data/tasks.txt";
 
-    Storage() {
+    public Storage() {
     }
 
     public ArrayList<Task> loadData() throws IOException{

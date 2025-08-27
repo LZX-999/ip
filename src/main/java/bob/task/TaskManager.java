@@ -1,11 +1,16 @@
+package bob.task;
+
 import java.io.IOException;
 import java.util.ArrayList;
+
+import bob.storage.Storage;
+
 
 public class TaskManager {
     private ArrayList<Task> tasks;
     private Storage storage;
     
-    TaskManager(Storage storage) {
+    public TaskManager(Storage storage) {
         this.storage = storage;
         try {
             this.tasks = storage.loadData();

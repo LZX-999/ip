@@ -1,15 +1,34 @@
+package bob.parser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import bob.storage.Storage;
+import bob.ui.Ui;
+import bob.task.TaskManager;
+import bob.task.Event;
+import bob.task.Deadline;
+import bob.task.Todo;
+import bob.task.Task;
+import bob.exception.InvalidEventUsageException;
+import bob.command.Command;
+import bob.command.AddCommand;
+import bob.command.ByeCommand;
+import bob.command.DeleteCommand;
+import bob.command.ListCommand;
+import bob.command.MarkCommand;
+import bob.command.UnmarkCommand;
+
+
 public class Parser {
     Storage storage = new Storage();
     private TaskManager manager;
     Ui ui = new Ui();
 
-    Parser(TaskManager manager) {
+    public Parser(TaskManager manager) {
         this.manager = manager;
     }
 

@@ -1,3 +1,5 @@
+package bob.task;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -8,7 +10,7 @@ public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 
-    Event(String s, LocalDate from, LocalDate to, boolean isDone, int id) {
+    public Event(String s, LocalDate from, LocalDate to, boolean isDone, int id) {
         super(s, "E", isDone, id);
         this.from = from;
         this.to = to;
