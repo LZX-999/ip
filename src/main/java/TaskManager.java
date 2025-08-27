@@ -3,9 +3,10 @@ import java.util.ArrayList;
 
 public class TaskManager {
     private ArrayList<Task> tasks;
-    private Storage storage = new Storage();
+    private Storage storage;
     
-    TaskManager() {
+    TaskManager(Storage storage) {
+        this.storage = storage;
         try {
             this.tasks = storage.loadData();
         } catch (IOException e) {
@@ -32,8 +33,8 @@ public class TaskManager {
             if (idx < 0 || idx - 1 >= tasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            Task task = tasks.get(idx - 1);
-            tasks.remove(idx - 1);
+            Task task = tasks.get(idx);
+            tasks.remove(idx);
             save();
             return task;
         } catch (IndexOutOfBoundsException e) {
@@ -50,9 +51,9 @@ public class TaskManager {
             if (idx < 0 || idx - 1 >= tasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            tasks.get(idx - 1).markDone();
+            tasks.get(idx).markDone();
             save();
-            return tasks.get(idx - 1);
+            return tasks.get(idx);
         } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
             return null;
@@ -67,9 +68,9 @@ public class TaskManager {
             if (idx < 0 || idx - 1 >= tasks.size()) {
                 throw new IndexOutOfBoundsException();
             }
-            tasks.get(idx - 1).unmarkDone();
+            tasks.get(idx).unmarkDone();
             save();
-            return tasks.get(idx - 1);
+            return tasks.get(idx);
         } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
             return null;
@@ -84,6 +85,18 @@ public class TaskManager {
         for (Task s : tasks) {
             System.out.println(count + ". " + s);
             count++;
+        }
+    }
+
+    public int assignId() {
+        return this.tasks.size() + 1;
+    }
+
+    public Task getTask(int idx) {
+        try {
+            return tasks.get(idx);
+        } catch (IndexOutOfBoundsException e)  {
+            return null;
         }
     }
 }

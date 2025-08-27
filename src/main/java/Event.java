@@ -8,20 +8,22 @@ public class Event extends Task {
     private LocalDate from;
     private LocalDate to;
 
-    Event(String s, LocalDate from, LocalDate to, boolean isDone) {
-        super(s, "E", isDone);
+    Event(String s, LocalDate from, LocalDate to, boolean isDone, int id) {
+        super(s, "E", isDone, id);
         this.from = from;
         this.to = to;
     }
 
     @Override
     public String saveString() {
-        return String.format("%s|%s|%s|%s|%s", 
-            "E", super.getTaskName(), from.format(INPUT_FORMAT), to.format(INPUT_FORMAT), super.returnDone());
+        return String.format("%s|%s|%s|%s|%s|%s", 
+            "E", super.getTaskName(), from.format(INPUT_FORMAT), 
+                to.format(INPUT_FORMAT), super.returnDone(), Integer.toString(super.getId()));
     }
 
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + " to: " + to.format(OUTPUT_FORMAT) + ")"; 
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + " to: " + 
+            to.format(OUTPUT_FORMAT) + ")"; 
     }
     
 }

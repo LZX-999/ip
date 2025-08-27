@@ -6,34 +6,37 @@ import java.util.regex.Pattern;
 
 public class Parser {
     Storage storage = new Storage();
-    TaskManager manager = new TaskManager();
+    private TaskManager manager;
     Ui ui = new Ui();
 
-    Parser() {
-    
+    Parser(TaskManager manager) {
+        this.manager = manager;
     }
-    
+
     private static int delete(String input) {
         try {
             String[] parts = input.split(" ", 2);
-            int idx = Integer.parseInt(parts[1]);
+            int idx = Integer.parseInt(parts[1]) - 1;
             return idx;
         } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
             return -1;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Attempted to delete task that does not exists!");
+            return -1;
         }
     }
-    private static Task todo(String input) {
+    private Task todo(String input) {
         try {
             String[] parts = input.split(" ", 2);
-            Todo todo = new Todo(parts[1], false);
+            Todo todo = new Todo(parts[1], false, manager.assignId());
             return todo;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException("Usage todo <Task name>!");
         }
     }
     
-    private static Task deadline(String input) {
+    private Task deadline(String input) {
         Task ret;
         try {
             String pattern = "^deadline\\s+(.+)\\s+/by\\s+(.+)$";
@@ -51,9 +54,7 @@ public class Parser {
                 System.out.println("Date must be in yyyy-MM-dd format!");
                 return null;
             }
-            String formattedDate = date.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            ret = new Deadline(description, date, false);
-            System.out.println("Bob: Added new deadline [D]" + ret.getTaskName() + " (by: " + formattedDate + ")");
+            ret = new Deadline(description, date, false, manager.assignId());
             return ret;
         } catch (InvalidEventUsageException e) {
             System.out.println("Usage: deadline <task desc> /by <yyyy-MM-dd>");
@@ -61,7 +62,7 @@ public class Parser {
         }
     }
 
-    private static Task event(String input) {
+    private Task event(String input) {
         try {
             String pattern = "^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
             java.util.regex.Pattern r = java.util.regex.Pattern.compile(pattern);
@@ -88,7 +89,7 @@ public class Parser {
             }
             String formattedFrom = fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             String formattedTo = toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            Event event = new Event(description, fromDate, toDate, false);
+            Event event = new Event(description, fromDate, toDate, false, manager.assignId());
             System.out.println("Bob: Added new event [E]" + event.getTaskName() + " (from: " + formattedFrom + " to: " + formattedTo + ")");
             return event;
         } catch (InvalidEventUsageException e) {
@@ -100,18 +101,21 @@ public class Parser {
     private static int unmark(String input) {
         try {
             String[] parts = input.split(" ", 2);
-            int idx = Integer.parseInt(parts[1]);
+            int idx = Integer.parseInt(parts[1]) - 1;
             return idx;
         } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
             return -1;
-        }  
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Attempted to unmark task that does not exists!");
+            return -1;
+        }
     }
 
     private static int mark(String input) {
         try {
             String[] parts = input.split(" ", 2);
-            int idx = Integer.parseInt(parts[1]);
+            int idx = Integer.parseInt(parts[1]) - 1;
             return idx;
         } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
@@ -127,25 +131,20 @@ public class Parser {
         return splitString[0]; 
     }
 
-    public void run(String input) {
+    public Command run(String input) {
         String firstArg = parse(input);
         switch (firstArg) {
             case "bye":
-                ui.printBye();
-                break;
+                return new ByeCommand(null);
             case "list":
-                ui.printLine();
-                manager.printTask();
-                ui.printLine();
-                break;
+                return new ListCommand(null);
             case "todo":
                 try {
                     Task todo = todo(input);
                     if (todo == null) {
                         throw new InvalidEventUsageException("");
                     }
-                    manager.addTask(todo);
-                    ui.printAddEvent(todo);
+                    return new AddCommand(todo);
                 } catch (InvalidEventUsageException e) {
                     ui.printUsage();
                 }
@@ -156,8 +155,7 @@ public class Parser {
                     if (deadline == null) {
                         throw new InvalidEventUsageException("");
                     }
-                    manager.addTask(deadline);
-                    ui.printAddEvent(deadline);
+                    return new AddCommand(deadline);
                 } catch (InvalidEventUsageException e) {
                     ui.printUsage();
                 }
@@ -169,56 +167,56 @@ public class Parser {
                     if (event == null) {
                         throw new InvalidEventUsageException("");
                     }
-                    manager.addTask(event);
-                    ui.printAddEvent(event);
+                    return new AddCommand(event);
                 } catch (InvalidEventUsageException e) {
-
+                    ui.printUsage();
                 } 
                 break;
             }
             case "mark": {
                 try {
                     int idx = mark(input);
-                    Task marked = manager.mark(idx);
-                    if (marked == null) {
+                    Task marked = manager.getTask(idx);
+                    if (marked == null || idx < 0) {
                         throw new  InvalidEventUsageException( "");
                     } 
-                    ui.printMark(marked);
+                    return new MarkCommand(marked, idx);
                 } catch (InvalidEventUsageException e) {
                     ui.printUsage();
+                    return null;
                 }
-                break;
             }
             case "unmark": {
                 try {
                     int idx = unmark(input);
-                    Task unmarked = manager.unmark(idx);
-                    if (unmarked == null) {
+                    Task unmarked = manager.getTask(idx);
+                    if (unmarked == null || idx < 0) {
                         throw new InvalidEventUsageException("");
                     }
-                    ui.printUnmark(unmarked);
+                    return new UnmarkCommand(unmarked, idx);
                 } catch (InvalidEventUsageException e) {
                         ui.printUsage();
+                        return null;
                 }
-                break;
             }
             case "delete": {
                 try {
                     int idx = delete(input);
-                    Task deleted = manager.deleteTask(idx);
-                    if (deleted == null) {
+                    Task deleted = manager.getTask(idx);
+                    if (deleted == null || idx < 0) {
                         throw new InvalidEventUsageException("");
                     }
-                    ui.printDelete(deleted);
+                    return new DeleteCommand(deleted, idx);
                 } catch (InvalidEventUsageException e) {
                     ui.printUsage();
+                    return null;
                 }
-                break;
             }
             default:
                 ui.printUsage();
-                break;
+                return null;
             }
+            return null;
         }
 
     }

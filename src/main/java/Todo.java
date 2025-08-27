@@ -1,12 +1,12 @@
 public class Todo extends Task {
-    Todo(String s, boolean isDone) {
-        super(s, "T", isDone);
+    Todo(String s, boolean isDone, int id) {
+        super(s, "T", isDone, id);
     }
 
     @Override
     public String saveString() {
-        return String.format("%s|%s|%s",
-            "T", super.getTaskName(), super.returnDone());
+        return String.format("%s|%s|%s|%s",
+            "T", super.getTaskName(), super.returnDone(), Integer.toString(super.getId()));
     }
 
     @Override

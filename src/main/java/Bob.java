@@ -4,16 +4,22 @@ public class Bob {
         Ui ui = new Ui();
         ui.printLogo();
         ui.printWelcome();
-        Parser parser = new Parser();
-        boolean run = true;
-        while (run) {
+        Storage storage = new Storage();
+        TaskManager manager = new TaskManager(storage);
+        Parser parser = new Parser(manager);
+        boolean isBye = false;
+        while (!isBye) {
             String input = ui.readInput();
-            if (input.equals("bye")) {
-                run = false;
-                ui.printBye();
-                break;
+            try {
+                Command c = parser.run(input);
+                if (c == null) {
+                    throw new InvalidEventUsageException("");
+                }
+                c.execute(manager, ui, storage);
+                isBye = c.isBye();
+            } catch (InvalidEventUsageException e) {
+                continue;
             }
-            parser.run(input);
         }
 
     }

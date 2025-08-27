@@ -2,11 +2,13 @@ public class Task {
     private String taskName;
     private boolean isDone;
     private String tag;
+    private int id;
 
-    Task(String name, String tag, boolean isDone) {
+    Task(String name, String tag, boolean isDone, int id) {
         this.taskName = name;
         this.isDone = isDone;
         this.tag = tag;
+        this.id = id;
     }
 
     public void markDone() {
@@ -31,6 +33,10 @@ public class Task {
 
     public String saveString() {
         return "";
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public String toString() {

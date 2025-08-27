@@ -1,0 +1,17 @@
+public class ByeCommand extends Command {
+    private final Task t;
+
+    ByeCommand(Task t) {
+        this.t = t;
+    }
+
+    public void execute(TaskManager tasks, Ui ui, Storage storage) {
+        ui.printBye();
+
+    }
+
+    @Override
+    public boolean isBye() {
+        return true;
+    }
+}
