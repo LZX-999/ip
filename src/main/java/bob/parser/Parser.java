@@ -22,11 +22,19 @@ import bob.task.TaskManager;
 import bob.task.Todo;
 import bob.ui.Ui;
 
+/**
+ * Parser is responsible to make sense of user's input
+ */
 public class Parser {
     private Storage storage = new Storage();
     private TaskManager manager;
     private Ui ui = new Ui();
 
+    /**
+     * Constructor for parser
+     * 
+     * @param manager TaskManager object for managing tasks
+     */
     public Parser(TaskManager manager) {
         this.manager = manager;
     }
@@ -151,6 +159,12 @@ public class Parser {
         return splitString[0];
     }
 
+    /**
+     * Executes the user input
+     * 
+     * @param input User input in string
+     * @return The command object to be executed
+     */
     public Command run(String input) {
         String firstArg = parse(input);
         switch (firstArg) {

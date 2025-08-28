@@ -7,6 +7,9 @@ import bob.storage.Storage;
 import bob.task.TaskManager;
 import bob.ui.Ui;
 
+/**
+ * Task managing application
+ */
 public class Bob {
 
     private void start() {
