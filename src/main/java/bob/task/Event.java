@@ -18,14 +18,13 @@ public class Event extends Task {
 
     @Override
     public String saveString() {
-        return String.format("%s|%s|%s|%s|%s|%s",
-                "E", super.getTaskName(), from.format(INPUT_FORMAT),
+        return String.format("%s|%s|%s|%s|%s|%s", "E", super.getTaskName(), from.format(INPUT_FORMAT),
                 to.format(INPUT_FORMAT), super.returnDone(), Integer.toString(super.getId()));
     }
 
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + " to: " +
-                to.format(OUTPUT_FORMAT) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT) + " to: " + to.format(OUTPUT_FORMAT)
+                + ")";
     }
 
 }

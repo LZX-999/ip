@@ -1,8 +1,8 @@
 package bob.command;
 
+import bob.storage.Storage;
 import bob.task.Task;
 import bob.task.TaskManager;
-import bob.storage.Storage;
 import bob.ui.Ui;
 
 public class UnmarkCommand extends Command {

@@ -2,18 +2,16 @@ package bob.parser;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 import bob.command.AddCommand;
 import bob.command.ByeCommand;
-import bob.command.ListCommand;
 import bob.command.Command;
+import bob.command.ListCommand;
 import bob.storage.Storage;
 import bob.task.TaskManager;
-
 
 public class ParserTest {
     Storage storage = new Storage();
@@ -46,8 +44,7 @@ public class ParserTest {
 
     @Test
     void parser_addCommand_addInvalidEvent() {
-        assertEquals(parser.run("event idk /from2025-11-11 /to2025-11-12"),
-            null);
+        assertEquals(parser.run("event idk /from2025-11-11 /to2025-11-12"), null);
     }
 
     @Test

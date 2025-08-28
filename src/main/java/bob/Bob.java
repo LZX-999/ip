@@ -1,11 +1,11 @@
 package bob;
 
-import bob.ui.Ui;
+import bob.command.Command;
+import bob.exception.InvalidEventUsageException;
+import bob.parser.Parser;
 import bob.storage.Storage;
 import bob.task.TaskManager;
-import bob.command.Command;
-import bob.parser.Parser;
-import bob.exception.InvalidEventUsageException;
+import bob.ui.Ui;
 
 public class Bob {
 
