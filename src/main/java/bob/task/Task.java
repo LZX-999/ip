@@ -12,12 +12,12 @@ public class Task {
     /**
      * Constructor for task
      * 
-     * @param name   Name of the task
-     * @param tag    Tag of the class e.g. E for event
+     * @param name Name of the task
+     * @param tag Tag of the class e.g. E for event
      * @param isDone Indicate whether the task is done
-     * @param id     Id of the task
+     * @param id Id of the task
      */
-    Task(String name, String tag, boolean isDone, int id) {
+    public Task(String name, String tag, boolean isDone, int id) {
         this.taskName = name;
         this.isDone = isDone;
         this.tag = tag;
