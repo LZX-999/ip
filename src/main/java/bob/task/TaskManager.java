@@ -2,6 +2,8 @@ package bob.task;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 import bob.storage.Storage;
 
@@ -101,6 +103,28 @@ public class TaskManager {
             return tasks.get(idx);
         } catch (IndexOutOfBoundsException e) {
             return null;
+        }
+    }
+
+    public void find(String query) {
+        ArrayList<Task> found = new ArrayList<Task>();
+        int count = 0;
+        Pattern pattern = Pattern.compile(Pattern.quote(query.trim()), Pattern.CASE_INSENSITIVE);
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            Matcher matcher = pattern.matcher(task.toString());
+            if (matcher.find()) {
+                found.add(task);
+                count++;
+            }
+        }
+        if (count == 0) {
+            System.out.println("No task found with that query");
+        } else {
+            System.out.println("Task found!");
+            for (int i = 0; i < found.size(); i++) {
+                System.out.println(i + 1 + ". " + found.get(i));
+            }
         }
     }
 }

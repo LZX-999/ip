@@ -18,6 +18,7 @@ import bob.command.Command;
 import bob.command.AddCommand;
 import bob.command.ByeCommand;
 import bob.command.DeleteCommand;
+import bob.command.FindCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.UnmarkCommand;
@@ -151,6 +152,24 @@ public class Parser {
         return splitString[0];
     }
 
+    private Task findTask(String input) {
+        try {
+            Pattern pattern = Pattern.compile("^find\\s+(.+)$");
+            Matcher matcher = pattern.matcher(input);
+            String query = "";
+            if (matcher.matches()) {
+                query = matcher.group(1).trim();
+                if (query.isEmpty()) {
+                    throw new InvalidEventUsageException("");
+                }
+            }
+            return new Task(query, "T", false, 0);
+        } catch (InvalidEventUsageException e) {
+            System.out.println("Query cannot be empty!");
+            return null;
+        }
+    }
+
     public Command run(String input) {
         String firstArg = parse(input);
         switch (firstArg) {
@@ -231,6 +250,19 @@ public class Parser {
                     ui.printUsage();
                     return null;
                 }
+            }
+            case "find": {
+                try {
+                    Task t = findTask(input);
+                    if (t == null) {
+                        throw new InvalidEventUsageException("");
+                    }
+                    return new FindCommand(t, 0);
+                } catch (InvalidEventUsageException e) {
+                    ui.printUsage();
+                    return null;
+                }
+
             }
             default:
                 ui.printUsage();

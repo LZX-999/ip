@@ -83,6 +83,7 @@ public class Ui {
                 5. mark <index> (Mark task as done)
                 6. unmark <index> (Unmark task as not done)
                 7. bye (Exit)
+                8. find <query>
                 """);
         printLine();
     }

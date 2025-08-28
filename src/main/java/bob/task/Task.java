@@ -6,7 +6,7 @@ public class Task {
     private String tag;
     private int id;
 
-    Task(String name, String tag, boolean isDone, int id) {
+    public Task(String name, String tag, boolean isDone, int id) {
         this.taskName = name;
         this.isDone = isDone;
         this.tag = tag;
