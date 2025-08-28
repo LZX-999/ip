@@ -10,6 +10,7 @@ import bob.command.AddCommand;
 import bob.command.ByeCommand;
 import bob.command.Command;
 import bob.command.DeleteCommand;
+import bob.command.FindCommand;
 import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.UnmarkCommand;
@@ -159,12 +160,31 @@ public class Parser {
         return splitString[0];
     }
 
+    private Task findTask(String input) {
+        try {
+            Pattern pattern = Pattern.compile("^find\\s+(.+)$");
+            Matcher matcher = pattern.matcher(input);
+            String query = "";
+            if (matcher.matches()) {
+                query = matcher.group(1).trim();
+                if (query.isEmpty()) {
+                    throw new InvalidEventUsageException("");
+                }
+            }
+            return new Task(query, "T", false, 0);
+        } catch (InvalidEventUsageException e) {
+            System.out.println("Query cannot be empty!");
+            return null;
+        }
+    }
+
     /**
      * Executes the user input
      * 
      * @param input User input in string
      * @return The command object to be executed
      */
+
     public Command run(String input) {
         String firstArg = parse(input);
         switch (firstArg) {
@@ -220,19 +240,6 @@ public class Parser {
                 return null;
             }
         }
-        case "unmark": {
-            try {
-                int idx = unmark(input);
-                Task unmarked = manager.getTask(idx);
-                if (unmarked == null || idx < 0) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new UnmarkCommand(unmarked, idx);
-            } catch (InvalidEventUsageException e) {
-                ui.printUsage();
-                return null;
-            }
-        }
         case "delete": {
             try {
                 int idx = delete(input);
@@ -241,6 +248,32 @@ public class Parser {
                     throw new InvalidEventUsageException("");
                 }
                 return new DeleteCommand(deleted, idx);
+            } catch (InvalidEventUsageException e) {
+                ui.printUsage();
+                return null;
+            }
+        }
+        case "find": {
+            try {
+                Task t = findTask(input);
+                if (t == null) {
+                    throw new InvalidEventUsageException("");
+                }
+                return new FindCommand(t, 0);
+            } catch (InvalidEventUsageException e) {
+                ui.printUsage();
+                return null;
+            }
+
+        }
+        case "unmark": {
+            try {
+                int idx = unmark(input);
+                Task unmarked = manager.getTask(idx);
+                if (unmarked == null || idx < 0) {
+                    throw new InvalidEventUsageException("");
+                }
+                return new UnmarkCommand(unmarked, idx);
             } catch (InvalidEventUsageException e) {
                 ui.printUsage();
                 return null;
