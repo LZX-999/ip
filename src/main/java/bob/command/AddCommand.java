@@ -5,15 +5,30 @@ import bob.task.Task;
 import bob.task.TaskManager;
 import bob.ui.Ui;
 
+/**
+ * Represents a command to add tasks
+ */
 public class AddCommand extends Command {
-    private final Task t;
+    private final Task task;
 
-    public AddCommand(Task t) {
-        this.t = t;
+    /**
+     * Constructor for AddCommand
+     * 
+     * @param task The task to be added
+     */
+    public AddCommand(Task task) {
+        this.task = task;
     }
 
+    /**
+     * Execute the command
+     * 
+     * @param tasks   TaskManager object handling the tasks
+     * @param ui      Ui object handling ui
+     * @param storage Storage object handling storing of tasks
+     */
     public void execute(TaskManager tasks, Ui ui, Storage storage) {
-        tasks.addTask(t);
-        ui.printAddEvent(t);
+        tasks.addTask(task);
+        ui.printAddEvent(task);
     }
 }

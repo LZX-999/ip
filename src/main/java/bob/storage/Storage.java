@@ -10,12 +10,24 @@ import java.util.Scanner;
 import bob.task.Task;
 import bob.task.TaskDecoder;
 
+/**
+ * Storage is responsible for saving and loading tasks
+ */
 public class Storage {
     private final String FILE_PATH = "data/tasks.txt";
 
+    /**
+     * Constructor for storage
+     */
     public Storage() {
     }
 
+    /**
+     * load saved tasks from a file into a list
+     * 
+     * @return ArrayList containing task
+     * @throws IOException if there is an error reading file
+     */
     public ArrayList<Task> loadData() throws IOException {
         ArrayList<Task> ret = new ArrayList<Task>();
         try {
@@ -38,6 +50,12 @@ public class Storage {
         return ret;
     }
 
+    /**
+     * Save task to a file
+     * 
+     * @param tasks The List of task to be saved
+     * @throws IOException if there is an error reading file
+     */
     public void saveTask(List<Task> tasks) throws IOException {
         try {
             File file = new File(FILE_PATH);

@@ -5,13 +5,28 @@ import bob.task.TaskManager;
 import bob.storage.Storage;
 import bob.ui.Ui;
 
+/**
+ * Represents a list command.
+ */
 public class ListCommand extends Command {
-    private final Task t;
+    private final Task task;
 
-    public ListCommand(Task t) {
-        this.t = t;
+    /**
+     * Constructor for list command
+     * 
+     * @param Could be null or any task since it is not used
+     */
+    public ListCommand(Task task) {
+        this.task = task;
     }
 
+    /**
+     * Execute the command
+     * 
+     * @param tasks   TaskManager object handling the tasks
+     * @param ui      Ui object handling ui
+     * @param storage Storage object handling storing of tasks
+     */
     public void execute(TaskManager tasks, Ui ui, Storage storage) {
         tasks.printTask();
     }

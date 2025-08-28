@@ -7,6 +7,9 @@ import bob.command.Command;
 import bob.parser.Parser;
 import bob.exception.InvalidEventUsageException;
 
+/**
+ * Task managing application
+ */
 public class Bob {
 
     private void start() {

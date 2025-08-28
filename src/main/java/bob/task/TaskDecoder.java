@@ -3,8 +3,16 @@ package bob.task;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Class responsible for decoding save string to task
+ */
 public class TaskDecoder {
-
+    /**
+     * Method that task a save string and decode it back to task
+     * 
+     * @param taskDesc Save string of the task
+     * @return Task based on the save string
+     */
     public static Task retTask(String taskDesc) {
         String[] splits = taskDesc.split("\\|");
         String tags = splits[0];
