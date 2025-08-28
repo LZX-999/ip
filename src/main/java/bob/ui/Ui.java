@@ -5,7 +5,7 @@ import java.util.Scanner;
 import bob.task.Task;
 
 public class Ui {
-    private final String LOGO = " /$$$$$$$   /$$$$$$  /$$$$$$$ \n" + //
+    private static final String BOB_LOGO = " /$$$$$$$   /$$$$$$  /$$$$$$$ \n" + //
             "| $$__  $$ /$$__  $$| $$__  $$\n" + //
             "| $$  \\ $$| $$  \\ $$| $$  \\ $$\n" + //
             "| $$$$$$$ | $$  | $$| $$$$$$$ \n" + //
@@ -16,8 +16,8 @@ public class Ui {
             "                              \n" + //
             "                              \n" + //
             "                              ";
-    private final String LINES = "____________________________________________________________";
-    Scanner sc = new Scanner(System.in);
+    private final String HORITZONAL_LINES = "____________________________________________________________";
+    private Scanner sc = new Scanner(System.in);
 
     public Ui() {
 
@@ -25,12 +25,12 @@ public class Ui {
 
     public void printLogo() {
         printLine();
-        System.out.println("Hello from\n" + LOGO);
+        System.out.println("Hello from\n" + BOB_LOGO);
         printLine();
     }
 
     public void printLine() {
-        System.out.println(LINES);
+        System.out.println(HORITZONAL_LINES);
     }
 
     public String readInput() {
