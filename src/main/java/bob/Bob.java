@@ -7,7 +7,6 @@ import bob.command.Command;
 import bob.parser.Parser;
 import bob.exception.InvalidEventUsageException;
 
-
 public class Bob {
 
     private void start() {
@@ -33,7 +32,7 @@ public class Bob {
         }
 
     }
-    
+
     public static void main(String[] args) {
         Bob bob = new Bob();
         bob.start();

@@ -15,10 +15,11 @@ public class Deadline extends Task {
 
     @Override
     public String saveString() {
-        return String.format("%s|%s|%s|%s|%s", 
-            "D", super.getTaskName(), by.format(INPUT_FORMAT), 
+        return String.format("%s|%s|%s|%s|%s",
+                "D", super.getTaskName(), by.format(INPUT_FORMAT),
                 super.returnDone(), Integer.toString(super.getId()));
     }
+
     public String toString() {
         return "[D]" + super.toString() + " " + "(by: " + by.format(OUTPUT_FORMAT) + ")";
     }

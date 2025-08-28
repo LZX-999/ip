@@ -22,7 +22,6 @@ import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.UnmarkCommand;
 
-
 public class Parser {
     Storage storage = new Storage();
     private TaskManager manager;
@@ -45,6 +44,7 @@ public class Parser {
             return -1;
         }
     }
+
     private Task todo(String input) {
         try {
             String[] parts = input.split(" ", 2);
@@ -54,7 +54,7 @@ public class Parser {
             throw new ArrayIndexOutOfBoundsException("Usage todo <Task name>!");
         }
     }
-    
+
     private Task deadline(String input) {
         Task ret;
         try {
@@ -109,7 +109,8 @@ public class Parser {
             String formattedFrom = fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             String formattedTo = toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             Event event = new Event(description, fromDate, toDate, false, manager.assignId());
-            System.out.println("Bob: Added new event [E]" + event.getTaskName() + " (from: " + formattedFrom + " to: " + formattedTo + ")");
+            System.out.println("Bob: Added new event [E]" + event.getTaskName() + " (from: " + formattedFrom + " to: "
+                    + formattedTo + ")");
             return event;
         } catch (InvalidEventUsageException e) {
             System.out.println("Usage: event <task desc> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
@@ -144,10 +145,10 @@ public class Parser {
             return -1;
         }
     }
-    
+
     private String parse(String input) {
         String[] splitString = input.split(" ", 2);
-        return splitString[0]; 
+        return splitString[0];
     }
 
     public Command run(String input) {
@@ -167,7 +168,7 @@ public class Parser {
                 } catch (InvalidEventUsageException e) {
                     ui.printUsage();
                 }
-                    break;
+                break;
             case "deadline": {
                 try {
                     Task deadline = deadline(input);
@@ -189,7 +190,7 @@ public class Parser {
                     return new AddCommand(event);
                 } catch (InvalidEventUsageException e) {
                     ui.printUsage();
-                } 
+                }
                 break;
             }
             case "mark": {
@@ -197,8 +198,8 @@ public class Parser {
                     int idx = mark(input);
                     Task marked = manager.getTask(idx);
                     if (marked == null || idx < 0) {
-                        throw new  InvalidEventUsageException( "");
-                    } 
+                        throw new InvalidEventUsageException("");
+                    }
                     return new MarkCommand(marked, idx);
                 } catch (InvalidEventUsageException e) {
                     ui.printUsage();
@@ -214,8 +215,8 @@ public class Parser {
                     }
                     return new UnmarkCommand(unmarked, idx);
                 } catch (InvalidEventUsageException e) {
-                        ui.printUsage();
-                        return null;
+                    ui.printUsage();
+                    return null;
                 }
             }
             case "delete": {
@@ -234,9 +235,8 @@ public class Parser {
             default:
                 ui.printUsage();
                 return null;
-            }
-            return null;
         }
-
+        return null;
     }
 
+}

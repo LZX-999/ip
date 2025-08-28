@@ -5,11 +5,10 @@ import java.util.ArrayList;
 
 import bob.storage.Storage;
 
-
 public class TaskManager {
     private ArrayList<Task> tasks;
     private Storage storage;
-    
+
     public TaskManager(Storage storage) {
         this.storage = storage;
         try {
@@ -82,7 +81,7 @@ public class TaskManager {
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Attempted to mark task that does not exists!");
             return null;
-        } 
+        }
     }
 
     public void printTask() {
@@ -100,7 +99,7 @@ public class TaskManager {
     public Task getTask(int idx) {
         try {
             return tasks.get(idx);
-        } catch (IndexOutOfBoundsException e)  {
+        } catch (IndexOutOfBoundsException e) {
             return null;
         }
     }

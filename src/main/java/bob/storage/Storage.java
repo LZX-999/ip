@@ -10,17 +10,16 @@ import java.util.Scanner;
 import bob.task.Task;
 import bob.task.TaskDecoder;
 
-
 public class Storage {
     private final String FILE_PATH = "data/tasks.txt";
 
     public Storage() {
     }
 
-    public ArrayList<Task> loadData() throws IOException{
+    public ArrayList<Task> loadData() throws IOException {
         ArrayList<Task> ret = new ArrayList<Task>();
         try {
-            File file = new  File(FILE_PATH);
+            File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
                 boolean created = file.createNewFile();
@@ -33,8 +32,7 @@ public class Storage {
                 ret.add(task);
             }
             scanner.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new IOException("Unable to read  file");
         }
         return ret;
@@ -55,11 +53,9 @@ public class Storage {
                 writer.write(curr.saveString() + System.lineSeparator());
             }
             writer.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new IOException("Unable to save task");
         }
     }
-
 
 }
