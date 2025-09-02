@@ -14,7 +14,7 @@ import bob.task.TaskDecoder;
  * Storage is responsible for saving and loading tasks
  */
 public class Storage {
-    private final String FILE_PATH = "data/tasks.txt";
+    private static final String FILE_PATH = "data/tasks.txt";
 
     /**
      * Constructor for storage

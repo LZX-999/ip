@@ -14,10 +14,10 @@ public class Deadline extends Task {
     /**
      * Constructor for deadline
      * 
-     * @param s      Name of the task
-     * @param by     LocalDate of the deadline of the task
+     * @param s Name of the task
+     * @param by LocalDate of the deadline of the task
      * @param isDone Indicate whether task is done
-     * @param id     id of the task
+     * @param id id of the task
      */
     public Deadline(String s, LocalDate by, boolean isDone, int id) {
         super(s, "D", isDone, id);

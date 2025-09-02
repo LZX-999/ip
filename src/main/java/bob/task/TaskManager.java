@@ -2,8 +2,8 @@ package bob.task;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import bob.storage.Storage;
 
@@ -152,6 +152,11 @@ public class TaskManager {
         }
     }
 
+    /**
+     * Method for finding task given a query
+     * 
+     * @param query Query used for filtering task
+     */
     public void find(String query) {
         ArrayList<Task> found = new ArrayList<Task>();
         int count = 0;

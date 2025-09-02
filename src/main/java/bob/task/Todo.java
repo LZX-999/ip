@@ -8,9 +8,9 @@ public class Todo extends Task {
     /**
      * Constructor for todo task
      * 
-     * @param s      Name of the task
+     * @param s Name of the task
      * @param isDone Indicate whether the task is done
-     * @param id     Id of the task
+     * @param id Id of the task
      */
     public Todo(String s, boolean isDone, int id) {
         super(s, "T", isDone, id);

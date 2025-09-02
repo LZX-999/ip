@@ -101,7 +101,8 @@ public class Parser {
             String description = m.group(1).trim();
             String fromTime = m.group(2).trim();
             String toTime = m.group(3).trim();
-            LocalDate fromDate, toDate;
+            LocalDate fromDate;
+            LocalDate toDate;
             try {
                 fromDate = LocalDate.parse(fromTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                 toDate = LocalDate.parse(toTime, DateTimeFormatter.ofPattern("yyyy-MM-dd"));

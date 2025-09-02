@@ -8,8 +8,8 @@ import bob.storage.Storage;
 import bob.task.TaskManager;
 
 public class TaskManagerTest {
-    Storage storage = new Storage();
-    TaskManager manager = new TaskManager(storage);
+    private Storage storage = new Storage();
+    private TaskManager manager = new TaskManager(storage);
 
     @Test
     void taskManager_mark_markInvalidTask() {

@@ -14,8 +14,8 @@ import bob.storage.Storage;
 import bob.task.TaskManager;
 
 public class ParserTest {
-    Storage storage = new Storage();
-    TaskManager manager = new TaskManager(storage);
+    private Storage storage = new Storage();
+    private TaskManager manager = new TaskManager(storage);
     private final Parser parser = new Parser(manager);
 
     @Test

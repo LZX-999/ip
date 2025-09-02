@@ -306,6 +306,7 @@
       <property name="format" value="[ \t]+$"/>
       <property name="illegalPattern" value="true"/>
       <property name="message" value="Trailing whitespace"/>
+      <property name="ignoreComments" value="true"/>
     </module>
 
     <module name="OperatorWrap">

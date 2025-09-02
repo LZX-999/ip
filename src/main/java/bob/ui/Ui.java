@@ -8,18 +8,7 @@ import bob.task.Task;
  * Class responsible for handling Ui
  */
 public class Ui {
-    private static final String BOB_LOGO = " /$$$$$$$   /$$$$$$  /$$$$$$$ \n" + //
-            "| $$__  $$ /$$__  $$| $$__  $$\n" + //
-            "| $$  \\ $$| $$  \\ $$| $$  \\ $$\n" + //
-            "| $$$$$$$ | $$  | $$| $$$$$$$ \n" + //
-            "| $$__  $$| $$  | $$| $$__  $$\n" + //
-            "| $$  \\ $$| $$  | $$| $$  \\ $$\n" + //
-            "| $$$$$$$/|  $$$$$$/| $$$$$$$/\n" + //
-            "|_______/  \\______/ |_______/ \n" + //
-            "                              \n" + //
-            "                              \n" + //
-            "                              ";
-    private final String HORITZONAL_LINES = "____________________________________________________________";
+    private static final String HORITZONAL_LINE = "____________________________________________________________";
     private Scanner sc = new Scanner(System.in);
 
     /**
@@ -30,19 +19,10 @@ public class Ui {
     }
 
     /**
-     * Method for printing logo
-     */
-    public void printLogo() {
-        printLine();
-        System.out.println("Hello from\n" + BOB_LOGO);
-        printLine();
-    }
-
-    /**
      * Method for printing line
      */
     public void printLine() {
-        System.out.println(HORITZONAL_LINES);
+        System.out.println(HORITZONAL_LINE);
     }
 
     /**

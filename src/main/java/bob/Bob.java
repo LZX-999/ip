@@ -14,7 +14,6 @@ public class Bob {
 
     private void start() {
         Ui ui = new Ui();
-        ui.printLogo();
         ui.printWelcome();
         Storage storage = new Storage();
         TaskManager manager = new TaskManager(storage);

@@ -16,11 +16,11 @@ public class Event extends Task {
     /**
      * Constructor for event
      * 
-     * @param s      Name of the event
-     * @param from   Starting duration of the event in LocalDate
-     * @param to     Ending duration of the event in LocaslDate
+     * @param s Name of the event
+     * @param from Starting duration of the event in LocalDate
+     * @param to Ending duration of the event in LocaslDate
      * @param isDone Indicate whether the task is done
-     * @param id     Id of the task
+     * @param id Id of the task
      */
     public Event(String s, LocalDate from, LocalDate to, boolean isDone, int id) {
         super(s, "E", isDone, id);
