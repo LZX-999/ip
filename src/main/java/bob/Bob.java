@@ -12,31 +12,29 @@ import bob.ui.Ui;
  */
 public class Bob {
 
-    private void start() {
+    /**
+     * Entry point for the bot
+     * 
+     * @param input
+     * @return Processed response after executing commands
+     */
+    public String start(String input) {
         Ui ui = new Ui();
-        ui.printWelcome();
         Storage storage = new Storage();
         TaskManager manager = new TaskManager(storage);
         Parser parser = new Parser(manager);
         boolean isBye = false;
-        while (!isBye) {
-            String input = ui.readInput();
-            try {
-                Command c = parser.run(input);
-                if (c == null) {
-                    throw new InvalidEventUsageException("");
-                }
-                c.execute(manager, ui, storage);
-                isBye = c.isBye();
-            } catch (InvalidEventUsageException e) {
-                continue;
+        try {
+            Command c = parser.run(input);
+            if (c == null) {
+                throw new InvalidEventUsageException("");
             }
+            String s = c.execute(manager, ui, storage);
+            isBye = c.isBye();
+            return s;
+        } catch (InvalidEventUsageException e) {
+            return "";
         }
 
-    }
-
-    public static void main(String[] args) {
-        Bob bob = new Bob();
-        bob.start();
     }
 }

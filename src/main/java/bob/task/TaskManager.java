@@ -120,12 +120,17 @@ public class TaskManager {
     /**
      * Method for printing all tasks
      */
-    public void printTask() {
+    public String getTasksString() {
+        if (tasks.size() == 0) {
+            return "There are no tasks!";
+        }
         int count = 1;
+        String taskString = "";
         for (Task s : tasks) {
-            System.out.println(count + ". " + s);
+            taskString += Integer.toString(count) + ". " + s + "\n";
             count++;
         }
+        return taskString;
     }
 
     /**
@@ -156,8 +161,9 @@ public class TaskManager {
      * Method for finding task given a query
      * 
      * @param query Query used for filtering task
+     * @return String of found task given a query
      */
-    public void find(String query) {
+    public String find(String query) {
         ArrayList<Task> found = new ArrayList<Task>();
         int count = 0;
         Pattern pattern = Pattern.compile(Pattern.quote(query.trim()), Pattern.CASE_INSENSITIVE);
@@ -170,12 +176,13 @@ public class TaskManager {
             }
         }
         if (count == 0) {
-            System.out.println("No task found with that query");
+            return "No task found with that query";
         } else {
-            System.out.println("Task found!");
+            String s = "Task found!\n";
             for (int i = 0; i < found.size(); i++) {
-                System.out.println(i + 1 + ". " + found.get(i));
+                s += Integer.toString(i + 1) + ". " + found.get(i) + "\n";
             }
+            return s;
         }
     }
 }

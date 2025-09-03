@@ -30,9 +30,9 @@ public class FindCommand extends Command {
      * @param ui Ui object handling ui
      * @param storage Storage object handling storing of tasks
      */
-    public void execute(TaskManager tasks, Ui ui, Storage storage) {
-        ui.printLine();
-        tasks.find(task.getTaskName());
-        ui.printLine();
+    public String execute(TaskManager tasks, Ui ui, Storage storage) {
+        String result = tasks.find(task.getTaskName());
+        return result;
+
     }
 }
