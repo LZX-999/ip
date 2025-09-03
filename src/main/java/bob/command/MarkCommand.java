@@ -30,8 +30,8 @@ public class MarkCommand extends Command {
      * @param ui Ui object handling ui
      * @param storage Storage object handling storing of tasks
      */
-    public void execute(TaskManager tasks, Ui ui, Storage storage) {
+    public String execute(TaskManager tasks, Ui ui, Storage storage) {
         tasks.mark(idx);
-        ui.printMark(tasks.getTask(idx));
+        return ui.getMarkString(tasks.getTask(idx));
     }
 }

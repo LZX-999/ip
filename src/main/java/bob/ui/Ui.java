@@ -8,7 +8,7 @@ import bob.task.Task;
  * Class responsible for handling Ui
  */
 public class Ui {
-    private static final String HORITZONAL_LINE = "____________________________________________________________";
+    private static final String HORIZONTAL_LINE = "____________________________________________________________";
     private Scanner sc = new Scanner(System.in);
 
     /**
@@ -22,7 +22,7 @@ public class Ui {
      * Method for printing line
      */
     public void printLine() {
-        System.out.println(HORITZONAL_LINE);
+        System.out.println(HORIZONTAL_LINE);
     }
 
     /**
@@ -37,65 +37,72 @@ public class Ui {
     }
 
     /**
-     * Method for printing marked task
+     * Method for constructing marked task string
      * 
-     * @param t Marked task for printing
+     * @param t Marked task for constructing string
+     * @return String to be displayed on GUI
      */
-    public void printMark(Task t) {
-        printLine();
-        System.out.println("Tasked marked as done: ");
-        System.out.println(t);
-        printLine();
+    public String getMarkString(Task t) {
+        String constructString = "";
+        constructString += "Tasked marked as done: ";
+        constructString += "\n";
+        constructString += t;
+        return constructString;
     }
 
     /**
-     * Method for printing unmarked task
+     * Method for constructing unmarked task string
      * 
-     * @param t Unmarked task for printing
+     * @param t Unmarked task for constructing string
+     * @return String to be displayed on GUI
      */
-    public void printUnmark(Task t) {
-        printLine();
-        System.out.println("Tasked unmarked as not done: ");
-        System.out.println(t);
-        printLine();
+    public String getUnmarkString(Task t) {
+        String constructString = "";
+        constructString += "Tasked unmarked as not done: ";
+        constructString += "\n";
+        constructString += t;
+        return constructString;
     }
 
     /**
-     * Method for printing added event
+     * Method for constructing event task string
      * 
-     * @param t Event to be printed
+     * @param t Event for constructing string
+     * @return String to be displayed on GUI
      */
-    public void printAddEvent(Task t) {
-        printLine();
-        System.out.println("Added task");
-        System.out.println(t);
-        printLine();
+    public String getAddEventString(Task t) {
+        String constructString = "";
+        constructString += "Event added: ";
+        constructString += "\n";
+        constructString += t;
+        return constructString;
     }
 
     /**
-     * Method for printing welcome message
+     * Method for returning welcome message
+     * 
+     * @return Welcome string
      */
-    public void printWelcome() {
-        printLine();
-        System.out.println("Bob: Hello! I'm Bob! What can I do for you?");
-        printLine();
+    public String getWelcomeString() {
+        return "Hello! I'm Bob! What can I do for you?";
     }
 
     /**
-     * Method for printing bye message
+     * Method for returning bye message
+     * 
+     * @return Bye string
      */
-    public void printBye() {
-        printLine();
-        System.out.println("Bob: Bye. Hope to see you again soon!");
-        printLine();
+    public String getByeString() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Method for printing bot usage
+     * Method for returning bot usage string
+     * 
+     * @return Usage string
      */
-    public void printUsage() {
-        printLine();
-        System.out.println("""
+    public String getUsageString() {
+        String s = """
                 Commands:
                 1. todo <task desc> (Add todo task)
                 2. deadline <task desc> /by <time> (Add deadline)
@@ -105,20 +112,23 @@ public class Ui {
                 6. unmark <index> (Unmark task as not done)
                 7. bye (Exit)
                 8. find <query>
-                """);
-        printLine();
+                """;
+        return s;
     }
 
     /**
      * Method for printing deleted task
      * 
      * @param t Deleted task to be printed
+     * 
+     * @return String to be printed on GUI
      */
-    public void printDelete(Task t) {
-        printLine();
-        System.out.println("Deleted task");
-        System.out.println(t);
-        printLine();
+    public String getDeleteString(Task t) {
+        String constructString = "";
+        constructString += "Deleted task";
+        constructString += "\n";
+        constructString += t;
+        return constructString;
     }
 
 }

@@ -23,12 +23,12 @@ public class ByeCommand extends Command {
     /**
      * Execute the command
      * 
-     * @param tasks   TaskManager object handling the tasks
-     * @param ui      Ui object handling ui
+     * @param tasks TaskManager object handling the tasks
+     * @param ui Ui object handling ui
      * @param storage Storage object handling storing of tasks
      */
-    public void execute(TaskManager tasks, Ui ui, Storage storage) {
-        ui.printBye();
+    public String execute(TaskManager tasks, Ui ui, Storage storage) {
+        return ui.getByeString();
     }
 
     /**

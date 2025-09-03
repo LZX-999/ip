@@ -27,8 +27,8 @@ public class AddCommand extends Command {
      * @param ui Ui object handling ui
      * @param storage Storage object handling storing of tasks
      */
-    public void execute(TaskManager tasks, Ui ui, Storage storage) {
+    public String execute(TaskManager tasks, Ui ui, Storage storage) {
         tasks.addTask(task);
-        ui.printAddEvent(task);
+        return ui.getAddEventString(task);
     }
 }

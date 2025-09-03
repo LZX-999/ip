@@ -201,9 +201,8 @@ public class Parser {
                 }
                 return new AddCommand(todo);
             } catch (InvalidEventUsageException e) {
-                ui.printUsage();
+                return null;
             }
-            break;
         case "deadline": {
             try {
                 Task deadline = deadline(input);
@@ -212,9 +211,8 @@ public class Parser {
                 }
                 return new AddCommand(deadline);
             } catch (InvalidEventUsageException e) {
-                ui.printUsage();
+                return null;
             }
-            break;
         }
         case "event": {
             try {
@@ -224,9 +222,8 @@ public class Parser {
                 }
                 return new AddCommand(event);
             } catch (InvalidEventUsageException e) {
-                ui.printUsage();
+                return null;
             }
-            break;
         }
         case "mark": {
             try {
@@ -237,7 +234,6 @@ public class Parser {
                 }
                 return new MarkCommand(marked, idx);
             } catch (InvalidEventUsageException e) {
-                ui.printUsage();
                 return null;
             }
         }
@@ -250,7 +246,6 @@ public class Parser {
                 }
                 return new DeleteCommand(deleted, idx);
             } catch (InvalidEventUsageException e) {
-                ui.printUsage();
                 return null;
             }
         }
@@ -262,7 +257,6 @@ public class Parser {
                 }
                 return new FindCommand(t, 0);
             } catch (InvalidEventUsageException e) {
-                ui.printUsage();
                 return null;
             }
 
@@ -276,15 +270,12 @@ public class Parser {
                 }
                 return new UnmarkCommand(unmarked, idx);
             } catch (InvalidEventUsageException e) {
-                ui.printUsage();
                 return null;
             }
         }
         default:
-            ui.printUsage();
             return null;
         }
-        return null;
     }
 
 }
