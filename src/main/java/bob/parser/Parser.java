@@ -15,21 +15,18 @@ import bob.command.ListCommand;
 import bob.command.MarkCommand;
 import bob.command.UnmarkCommand;
 import bob.exception.InvalidEventUsageException;
-import bob.storage.Storage;
 import bob.task.Deadline;
 import bob.task.Event;
 import bob.task.Task;
 import bob.task.TaskManager;
 import bob.task.Todo;
-import bob.ui.Ui;
 
 /**
  * Parser is responsible to make sense of user's input
  */
 public class Parser {
-    private Storage storage = new Storage();
     private TaskManager manager;
-    private Ui ui = new Ui();
+    private static final int INVALID_INDEX = -1;
 
     /**
      * Constructor for parser
@@ -47,10 +44,10 @@ public class Parser {
             return idx;
         } catch (NumberFormatException e) {
             System.out.println("Enter a valid number!");
-            return -1;
+            return INVALID_INDEX;
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Attempted to delete task that does not exists!");
-            return -1;
+            return INVALID_INDEX;
         }
     }
 
@@ -133,11 +130,9 @@ public class Parser {
             int idx = Integer.parseInt(parts[1]) - 1;
             return idx;
         } catch (NumberFormatException e) {
-            System.out.println("Enter a valid number!");
-            return -1;
+            return INVALID_INDEX;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Attempted to unmark task that does not exists!");
-            return -1;
+            return INVALID_INDEX;
         }
     }
 
@@ -147,11 +142,9 @@ public class Parser {
             int idx = Integer.parseInt(parts[1]) - 1;
             return idx;
         } catch (NumberFormatException e) {
-            System.out.println("Enter a valid number!");
-            return -1;
+            return INVALID_INDEX;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Attempted to mark task that does not exists!");
-            return -1;
+            return INVALID_INDEX;
         }
     }
 
@@ -173,7 +166,6 @@ public class Parser {
             }
             return new Task(query, "T", false, 0);
         } catch (InvalidEventUsageException e) {
-            System.out.println("Query cannot be empty!");
             return null;
         }
     }
