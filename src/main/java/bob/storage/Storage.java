@@ -34,7 +34,7 @@ public class Storage {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
-                boolean created = file.createNewFile();
+                file.createNewFile();
                 return ret;
             }
             Scanner scanner = new Scanner(file);
