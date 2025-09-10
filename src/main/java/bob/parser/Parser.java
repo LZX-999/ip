@@ -54,17 +54,18 @@ public class Parser {
         }
     }
 
-    private Task todo(String input) {
+    private Task addTodo(String input) {
         try {
             String[] parts = input.split(" ", 2);
             Todo todo = new Todo(parts[1], false, manager.assignId());
+            assert todo != null : "Valid todo should not be null";
             return todo;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new ArrayIndexOutOfBoundsException("Usage todo <Task name>!");
         }
     }
 
-    private Task deadline(String input) {
+    private Task addDeadline(String input) {
         Task ret;
         try {
             String pattern = "^deadline\\s+(.+)\\s+/by\\s+(.+)$";
@@ -83,6 +84,7 @@ public class Parser {
                 return null;
             }
             ret = new Deadline(description, date, false, manager.assignId());
+            assert ret != null : "Valid deadline should not be null";
             return ret;
         } catch (InvalidEventUsageException e) {
             System.out.println("Usage: deadline <task desc> /by <yyyy-MM-dd>");
@@ -90,7 +92,7 @@ public class Parser {
         }
     }
 
-    private Task event(String input) {
+    private Task addEvent(String input) {
         try {
             String pattern = "^event\\s+(.+)\\s+/from\\s+(.+)\\s+/to\\s+(.+)$";
             java.util.regex.Pattern r = java.util.regex.Pattern.compile(pattern);
@@ -116,11 +118,8 @@ public class Parser {
                 System.out.println("You cannot time travel bro");
                 return null;
             }
-            String formattedFrom = fromDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            String formattedTo = toDate.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
             Event event = new Event(description, fromDate, toDate, false, manager.assignId());
-            System.out.println("Bob: Added new event [E]" + event.getTaskName() + " (from: " + formattedFrom + " to: "
-                    + formattedTo + ")");
+            assert event != null : "Valid event should not be null";
             return event;
         } catch (InvalidEventUsageException e) {
             System.out.println("Usage: event <task desc> /from <yyyy-MM-dd> /to <yyyy-MM-dd>");
@@ -195,7 +194,7 @@ public class Parser {
             return new ListCommand(null);
         case "todo":
             try {
-                Task todo = todo(input);
+                Task todo = addTodo(input);
                 if (todo == null) {
                     throw new InvalidEventUsageException("");
                 }
@@ -205,7 +204,7 @@ public class Parser {
             }
         case "deadline": {
             try {
-                Task deadline = deadline(input);
+                Task deadline = addDeadline(input);
                 if (deadline == null) {
                     throw new InvalidEventUsageException("");
                 }
@@ -216,7 +215,7 @@ public class Parser {
         }
         case "event": {
             try {
-                Task event = event(input);
+                Task event = addEvent(input);
                 if (event == null) {
                     throw new InvalidEventUsageException("");
                 }
