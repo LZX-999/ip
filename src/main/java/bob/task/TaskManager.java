@@ -43,6 +43,7 @@ public class TaskManager {
      * @param t Task to be added
      */
     public void addTask(Task t) {
+        assert t != null : "Task to add should not be null";
         tasks.add(t);
         save();
     }
