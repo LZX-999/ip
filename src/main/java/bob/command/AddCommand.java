@@ -28,7 +28,10 @@ public class AddCommand extends Command {
      * @param storage Storage object handling storing of tasks
      */
     public String execute(TaskManager tasks, Ui ui, Storage storage) {
-        tasks.addTask(task);
+        String addTask = tasks.addTask(task);
+        if (addTask.equals("Duplicates found")) {
+            return ui.getDuplicateString(task);
+        }
         return ui.getAddEventString(task);
     }
 }
