@@ -131,4 +131,18 @@ public class Ui {
         return constructString;
     }
 
+    /**
+     * Method for printing attempt to add duplicate task
+     * 
+     * @param t duplicate task to be printed
+     * @return String to be printed on GUI
+     */
+    public String getDuplicateString(Task t) {
+        String construcString = "";
+        construcString += "Could not add task: ";
+        construcString += t.toString();
+        construcString += " due to duplicates";
+        return construcString;
+    }
+
 }

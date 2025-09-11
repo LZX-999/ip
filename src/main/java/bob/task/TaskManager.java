@@ -2,6 +2,7 @@ package bob.task;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +14,7 @@ import bob.storage.Storage;
 public class TaskManager {
     private ArrayList<Task> tasks;
     private Storage storage;
+    private HashMap<String, Integer> uniqueTasks = new HashMap<>();
 
     /**
      * Constructor of TaskManager
@@ -26,6 +28,10 @@ public class TaskManager {
         } catch (IOException e) {
             this.tasks = new ArrayList<Task>();
             System.out.println("Unable to load data, starting with empty task");
+        }
+        for (int i = 0; i < tasks.size(); i++) {
+            String key = tasks.get(i).toString();
+            uniqueTasks.put(key, uniqueTasks.getOrDefault(key, 0) + 1);
         }
     }
 
@@ -42,10 +48,14 @@ public class TaskManager {
      * 
      * @param t Task to be added
      */
-    public void addTask(Task t) {
+    public String addTask(Task t) {
         assert t != null : "Task to add should not be null";
-        tasks.add(t);
-        save();
+        if (!uniqueTasks.containsKey(t.toString())) {
+            tasks.add(t);
+            save();
+            return "Task added";
+        }
+        return "Duplicates found";
     }
 
     /**
