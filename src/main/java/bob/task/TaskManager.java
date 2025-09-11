@@ -53,6 +53,7 @@ public class TaskManager {
         if (!uniqueTasks.containsKey(t.toString())) {
             tasks.add(t);
             save();
+            uniqueTasks.put(t.toString(), 1);
             return "Task added";
         }
         return "Duplicates found";
