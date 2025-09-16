@@ -170,6 +170,93 @@ public class Parser {
         }
     }
 
+    private Command runTodo(String input) {
+        try {
+            Task todo = addTodo(input);
+            if (todo == null) {
+                throw new InvalidEventUsageException("");
+            }
+            return new AddCommand(todo);
+        } catch (InvalidEventUsageException e) {
+            return null;
+        }
+    }
+
+    private Command runDeadline(String input) {
+        try {
+            Task deadline = addDeadline(input);
+            if (deadline == null) {
+                throw new InvalidEventUsageException("");
+            }
+            return new AddCommand(deadline);
+        } catch (InvalidEventUsageException e) {
+            return null;
+        }
+    }
+
+    private Command runEvent(String input) {
+        try {
+            Task event = addEvent(input);
+            if (event == null) {
+                throw new InvalidEventUsageException("");
+            }
+            return new AddCommand(event);
+        } catch (InvalidEventUsageException e) {
+            return null;
+        }
+    }
+
+    private Command runMark(String input) {
+        try {
+            int idx = mark(input);
+            Task marked = manager.getTask(idx);
+            if (marked == null || idx < 0) {
+                throw new InvalidEventUsageException("");
+            }
+            return new MarkCommand(marked, idx);
+        } catch (InvalidEventUsageException e) {
+            return null;
+        }
+    }
+
+    private Command runDelete(String input) {
+        try {
+            int idx = delete(input);
+            Task deleted = manager.getTask(idx);
+            if (deleted == null || idx < 0) {
+                throw new InvalidEventUsageException("");
+            }
+            return new DeleteCommand(deleted, idx);
+        } catch (InvalidEventUsageException e) {
+            return null;
+        }
+    }
+
+    private Command runFind(String input) {
+        try {
+            Task t = findTask(input);
+            if (t == null) {
+                throw new InvalidEventUsageException("");
+            }
+            return new FindCommand(t, 0);
+        } catch (InvalidEventUsageException e) {
+            return null;
+        }
+    }
+
+    private Command runUnmark(String input) {
+        try {
+            int idx = unmark(input);
+            Task unmarked = manager.getTask(idx);
+            if (unmarked == null || idx < 0) {
+                throw new InvalidEventUsageException("");
+            }
+            return new UnmarkCommand(unmarked, idx);
+        } catch (InvalidEventUsageException e) {
+            return null;
+        }
+    }
+
     /**
      * Executes the user input
      * 
@@ -185,84 +272,25 @@ public class Parser {
         case "list":
             return new ListCommand(null);
         case "todo":
-            try {
-                Task todo = addTodo(input);
-                if (todo == null) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new AddCommand(todo);
-            } catch (InvalidEventUsageException e) {
-                return null;
-            }
+            return runTodo(input);
         case "deadline": {
-            try {
-                Task deadline = addDeadline(input);
-                if (deadline == null) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new AddCommand(deadline);
-            } catch (InvalidEventUsageException e) {
-                return null;
-            }
+            return runDeadline(input);
         }
         case "event": {
-            try {
-                Task event = addEvent(input);
-                if (event == null) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new AddCommand(event);
-            } catch (InvalidEventUsageException e) {
-                return null;
-            }
+            return runEvent(input);
         }
         case "mark": {
-            try {
-                int idx = mark(input);
-                Task marked = manager.getTask(idx);
-                if (marked == null || idx < 0) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new MarkCommand(marked, idx);
-            } catch (InvalidEventUsageException e) {
-                return null;
-            }
+            return runMark(input);
         }
         case "delete": {
-            try {
-                int idx = delete(input);
-                Task deleted = manager.getTask(idx);
-                if (deleted == null || idx < 0) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new DeleteCommand(deleted, idx);
-            } catch (InvalidEventUsageException e) {
-                return null;
-            }
+            return runDelete(input);
         }
         case "find": {
-            try {
-                Task t = findTask(input);
-                if (t == null) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new FindCommand(t, 0);
-            } catch (InvalidEventUsageException e) {
-                return null;
-            }
+            return runFind(input);
 
         }
         case "unmark": {
-            try {
-                int idx = unmark(input);
-                Task unmarked = manager.getTask(idx);
-                if (unmarked == null || idx < 0) {
-                    throw new InvalidEventUsageException("");
-                }
-                return new UnmarkCommand(unmarked, idx);
-            } catch (InvalidEventUsageException e) {
-                return null;
-            }
+            return runUnmark(input);
         }
         default:
             return null;
