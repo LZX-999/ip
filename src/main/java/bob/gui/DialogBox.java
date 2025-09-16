@@ -50,7 +50,10 @@ public class DialogBox extends HBox {
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.getStyleClass().add("user-dialog");
+        db.setAlignment(Pos.TOP_RIGHT);
+        return db;
     }
 
     public static DialogBox getDukeDialog(String text, Image img) {
