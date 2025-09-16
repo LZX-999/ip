@@ -25,8 +25,8 @@ import bob.task.Todo;
  * Parser is responsible to make sense of user's input
  */
 public class Parser {
-    private TaskManager manager;
     private static final int INVALID_INDEX = -1;
+    private TaskManager manager;
 
     /**
      * Constructor for parser
