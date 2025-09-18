@@ -36,6 +36,13 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        // Allow the label to wrap and bind its maximum width to this HBox's
+        // width
+        // minus the image width and some padding so text wraps on window
+        // resize.
+        dialog.setWrapText(true);
+        dialog.maxWidthProperty().bind(this.widthProperty().subtract(displayPicture.getFitWidth() + 40));
     }
 
     /**
