@@ -47,7 +47,7 @@ The format for listing all task:
 
 ## Marking task
 The format for marking task as done is:
-`mark <id of task>` - ID of task can be retrieved using the list command`
+`mark <id of task>` - ID of task can be retrieved using the list command
 
 Example: `mark 1`
 
@@ -66,13 +66,25 @@ Example: `unmark 1`
 Task unmarked as not done:
 [E][] Recess week (from: Sep 22 2025 to: Sep 26 2025)
 ```
+## Deleting task
+The format for deleting task:
+`delete <id of task>` - ID of task can be retrieved using the list command
 
+Example: `delete 1`
 
+```
+Deleted task
+[E][] Recess week (from: Sep 22 2025 to: Sep 26 2025)
+```
 
-## Feature ABC
+## Other feature
+You can easily find task by using keywords! It does not need to be exact match, Bob is smart enough to understand what you want!
 
-// Feature details
+The format for finding task:
+`find <keyword>`
+Example: 'find week'
 
-## Feature XYZ
-
-// Feature details
+```
+Task found!
+[E][] Recess week (from: Sep 22 2025 to: Sep 26 2025)
+```
