@@ -65,14 +65,14 @@ public class Ui {
     }
 
     /**
-     * Method for constructing event task string
+     * Method for constructing task string
      * 
-     * @param t Event for constructing string
+     * @param t Task for constructing string
      * @return String to be displayed on GUI
      */
-    public String getAddEventString(Task t) {
+    public String getAddTaskString(Task t) {
         String constructString = "";
-        constructString += "Event added: ";
+        constructString += "Task added: ";
         constructString += "\n";
         constructString += t;
         return constructString;

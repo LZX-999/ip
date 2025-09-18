@@ -32,6 +32,6 @@ public class AddCommand extends Command {
         if (addTask.equals("Duplicates found")) {
             return ui.getDuplicateString(task);
         }
-        return ui.getAddEventString(task);
+        return ui.getAddTaskString(task);
     }
 }
